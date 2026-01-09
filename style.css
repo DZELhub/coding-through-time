@@ -1,0 +1,123 @@
+/*! ------------------------ RESET ----------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*! -------------------- Root Variable ------------------- */
+
+:root {
+  /*? Font family */
+  --font-main: "Orbitron", sans-serif;
+  /*? Color palette */
+  --color-bg-main: #0b0f1a;
+  --color-bg-dark: #05070d;
+  --color-text-main: #ffffff;
+  --color-accent: #00f0ff;
+  --color-accent-secondary: #ff8800;
+  /*? Clock colors */
+  --color-clock-bg: rgba(0, 0, 0, 0.45);
+  --color-clock-border: rgba(0, 240, 255, 0.4);
+  /*? Shadows & glow */
+  --glow-soft: 0 0 6px rgba(0, 240, 255, 0.4);
+  --glow-strong: 0 0 14px rgba(0, 240, 255, 0.9);
+  /*? Font sizes */
+  --fs-hero-title: 3.5rem;
+  --fs-hero-subtitle: 1.2rem;
+  --fs-clock: 1.2rem;
+  /*? Animation timings */
+  --anim-glow-speed: 2s;
+  --anim-flicker-speed: 0.8s;
+}
+
+/*! -------------------- Global Style -------------------- */
+
+body {
+  font-family: var(--font-main);
+  background: radial-gradient(
+    circle at top,
+    var(--color-bg-main),
+    var(--color-bg-dark)
+  );
+  color: var(--color-text-main);
+  min-height: 100vh;
+}
+
+/*! -------------------- Hero Section -------------------- */
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: var(--fs-hero-title);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: var(--fs-hero-subtitle);
+  opacity: 0.75;
+}
+
+/*! -------------------- Digital Clock ------------------- */
+
+.digital-clock {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--color-clock-bg);
+  border: 1px solid var(--color-clock-border);
+  color: var(--color-accent);
+  font-size: var(--fs-clock);
+  letter-spacing: 3px;
+  animation: glowPulse var(--anim-glow-speed) infinite;
+  cursor: default;
+}
+
+.digital-clock .time {
+  display: inline-block;
+  animation: fastFlicker var(--anim-flicker-speed) infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: var(--glow-soft);
+  }
+  50% {
+    box-shadow: var(--glow-strong);
+  }
+  100% {
+    box-shadow: var(--glow-soft);
+  }
+}
+
+@keyframes fastFlicker {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
