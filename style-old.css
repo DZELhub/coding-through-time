@@ -261,29 +261,28 @@ body {
 /*! --- Hover Animations, Neon Glow & Visual Connection -- */
 
 .timeline-content {
+  transition:
+    transform 0.7s ease,
+    box-shadow 0.7s ease,
+    border 0.7s ease;
   border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.4s ease-out;
-  animation: idleFloat 6s ease-in-out infinite;
-  will-change: transform;
 }
 
 .timeline-content:hover {
-  animation: none;
-  transform: translateY(-6px);
-  box-shadow: var(--glow-soft);
-  border: 1px solid rgba(0, 240, 255, 0.3);
+  transform: translateY(-8px);
+  box-shadow: var(--glow-strong);
+  border: 1px solid var(--color-accent);
 }
 
 .timeline-item::before {
-  transition: all 0.4s ease-out;
+  transition:
+    box-shadow 0.7s ease,
+    transform 0.7s ease;
 }
 
 .timeline-item:hover::before {
-  transform: scale(1.15);
-  box-shadow:
-    var(--glow-soft),
-    0 0 0 6px rgba(0, 240, 255, 0.15);
+  box-shadow: var(--glow-strong);
+  transform: scale(1.2);
 }
 
 .timeline:hover::after {
@@ -292,10 +291,15 @@ body {
 
 /*! --------- Clock ←→ Timeline Visual Connection -------- */
 
+.digital-clock {
+  box-shadow: var(--glow-soft);
+  transition: box-shadow 0.3s ease;
+}
+
 /* Body-level detection for timeline hover */
 body:has(.timeline:hover) .digital-clock,
 body:has(.timeline-item:hover) .digital-clock {
-  box-shadow: var(--glow-strong) !important;
+  box-shadow: var(--glow-strong);
 }
 
 /* Fallback for browsers without :has() support */
@@ -303,13 +307,27 @@ body:has(.timeline-item:hover) .digital-clock {
   box-shadow: var(--glow-strong);
 }
 
+/*! -------------------- Micro Motion -------------------- */
+
+.timeline-content {
+  animation: idleFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.timeline-content:hover {
+  animation: none;
+  transform: translateY(-8px);
+}
+
 @keyframes idleFloat {
-  0%,
-  100% {
+  0% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -334,19 +352,46 @@ body:has(.timeline-item:hover) .digital-clock {
 
 .timeline-item {
   opacity: 0;
+  animation: itemEnter 0.8s ease-out forwards;
   transition: opacity 0.3s ease;
+}
+
+.timeline-item.left {
+  animation-delay: 0.2s;
+}
+
+.timeline-item.right {
+  animation-delay: 0.4s;
+}
+
+@keyframes itemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+}
+
+@keyframes itemEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .timeline-item.left {
   transform: translateY(30px) translateX(-40px);
   animation: itemEnterLeft 0.8s ease-out forwards;
-  animation-delay: 0.6s;
 }
 
 .timeline-item.right {
   transform: translateY(30px) translateX(40px);
   animation: itemEnterRight 0.8s ease-out forwards;
-  animation-delay: 0.9s;
 }
 
 @keyframes itemEnterLeft {
@@ -379,4 +424,10 @@ body:has(.timeline-item:hover) .digital-clock {
 
 .timeline-item:hover {
   opacity: 1 !important;
+}
+
+/** Smooth Global Transition */
+
+.timeline {
+  transition: opacity 0.3s ease;
 }
