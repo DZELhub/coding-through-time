@@ -121,3 +121,168 @@ body {
     opacity: 0.8;
   }
 }
+
+/*! ------------------ Timeline Section ------------------ */
+
+.timeline-section {
+  padding: 120px 20px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent),
+    var(--color-accent-secondary)
+  );
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 20px 40px;
+}
+
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+  cursor: pointer;
+}
+
+.timeline-item.right {
+  left: 50%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  z-index: 1;
+}
+
+.timeline-item.left::before {
+  right: -7px;
+}
+
+.timeline-item.right::before {
+  left: -7px;
+}
+
+.timeline-content {
+  background: rgba(0, 240, 255, 0.06);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.timeline-year {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--color-accent);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .timeline::after {
+    left: 20px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: 20px;
+  }
+
+  .timeline-item.left,
+  .timeline-item.right {
+    left: 0;
+    text-align: left;
+  }
+
+  .timeline-item.left::before {
+    left: 13px;
+  }
+
+  .timeline-item.right::before {
+    left: 13px;
+  }
+}
+
+/*! --- Hover Animations, Neon Glow & Visual Connection -- */
+
+.timeline-content {
+  transition:
+    transform 0.7s ease,
+    box-shadow 0.7s ease,
+    border 0.7s ease;
+  border: 1px solid transparent;
+}
+
+.timeline-content:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--glow-strong);
+  border: 1px solid var(--color-accent);
+}
+
+.timeline-item::before {
+  transition:
+    box-shadow 0.7s ease,
+    transform 0.7s ease;
+}
+
+.timeline-content:hover::before {
+  box-shadow: var(--glow-strong);
+  transform: scale(1.2);
+}
+
+.timeline:hover::after {
+  box-shadow: var(--glow-soft);
+}
+
+/*! --------- Clock ←→ Timeline Visual Connection -------- */
+
+.digital-clock {
+  box-shadow: var(--glow-soft);
+}
+
+.timeline:hover ~ .digital-clock,
+.timeline-section:hover .digital-clock {
+  box-shadow: var(--glow-strong);
+}
+
+/*! -------------------- Micro Motion -------------------- */
+
+.timeline-content {
+  animation: idleFloat 6s ease-in-out infinite;
+}
+
+@keyframes idleFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
